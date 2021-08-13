@@ -28,7 +28,7 @@ public class PageUtil extends cn.hutool.core.util.PageUtil {
     /**
      * List 分页
      */
-    public static List toPage(int page, int size , List list) {
+    public static List toPage(int page, int size , List<?> list) {
         int fromIndex = page * size;
         int toIndex = page * size + size;
         if(fromIndex > list.size()){
