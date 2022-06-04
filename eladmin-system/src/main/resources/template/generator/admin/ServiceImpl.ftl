@@ -1,18 +1,3 @@
-/*
-*  Copyright 2019-2020 Zheng Jie
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*  http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-*/
 package ${package}.service.impl;
 
 import ${package}.domain.${className};
@@ -54,11 +39,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
-* @website https://el-admin.vip
-* @description 服务实现
-* @author ${author}
-* @date ${date}
-**/
+  *
+  **/
 @Service
 @RequiredArgsConstructor
 public class ${className}ServiceImpl implements ${className}Service {
@@ -90,10 +72,10 @@ public class ${className}ServiceImpl implements ${className}Service {
     public ${className}Dto create(${className} resources) {
 <#if !auto && pkColumnType = 'Long'>
         Snowflake snowflake = IdUtil.createSnowflake(1, 1);
-        resources.set${pkCapitalColName}(snowflake.nextId()); 
+        resources.set${pkCapitalColName}(snowflake.nextId());
 </#if>
 <#if !auto && pkColumnType = 'String'>
-        resources.set${pkCapitalColName}(IdUtil.simpleUUID()); 
+        resources.set${pkCapitalColName}(IdUtil.simpleUUID());
 </#if>
 <#if columns??>
     <#list columns as column>
