@@ -65,7 +65,10 @@ public class DeptServiceImpl implements DeptService {
                 criteria.setPidIsNull(true);
             }
             List<Field> fields = QueryHelp.getAllFields(criteria.getClass(), new ArrayList<>());
-            List<String> fieldNames = new ArrayList<String>(){{ add("pidIsNull");add("enabled");}};
+            List<String> fieldNames = new ArrayList<>() {{
+                add("pidIsNull");
+                add("enabled");
+            }};
             for (Field field : fields) {
                 //设置对象的访问权限，保证对private的属性的访问
                 field.setAccessible(true);

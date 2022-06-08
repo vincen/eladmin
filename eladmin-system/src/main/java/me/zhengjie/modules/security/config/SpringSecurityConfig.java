@@ -138,24 +138,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 List<RequestMethod> requestMethods = new ArrayList<>(infoEntry.getKey().getMethodsCondition().getMethods());
                 RequestMethodEnum request = RequestMethodEnum.find(requestMethods.size() == 0 ? RequestMethodEnum.ALL.getType() : requestMethods.get(0).name());
                 switch (Objects.requireNonNull(request)) {
-                    case GET:
-                        get.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
-                        break;
-                    case POST:
-                        post.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
-                        break;
-                    case PUT:
-                        put.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
-                        break;
-                    case PATCH:
-                        patch.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
-                        break;
-                    case DELETE:
-                        delete.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
-                        break;
-                    default:
-                        all.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
-                        break;
+                    case GET -> get.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
+                    case POST -> post.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
+                    case PUT -> put.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
+                    case PATCH -> patch.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
+                    case DELETE -> delete.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
+                    default -> all.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
                 }
             }
         }

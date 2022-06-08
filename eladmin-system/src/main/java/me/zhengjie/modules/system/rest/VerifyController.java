@@ -61,15 +61,11 @@ public class VerifyController {
     @ApiOperation("验证码验证")
     public ResponseEntity<Object> validated(@RequestParam String email, @RequestParam String code, @RequestParam Integer codeBi){
         CodeBiEnum biEnum = CodeBiEnum.find(codeBi);
-        switch (Objects.requireNonNull(biEnum)){
-            case ONE:
-                verificationCodeService.validated(CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey() + email ,code);
-                break;
-            case TWO:
-                verificationCodeService.validated(CodeEnum.EMAIL_RESET_PWD_CODE.getKey() + email ,code);
-                break;
-            default:
-                break;
+        switch (Objects.requireNonNull(biEnum)) {
+            case ONE -> verificationCodeService.validated(CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey() + email, code);
+            case TWO -> verificationCodeService.validated(CodeEnum.EMAIL_RESET_PWD_CODE.getKey() + email, code);
+            default -> {
+            }
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

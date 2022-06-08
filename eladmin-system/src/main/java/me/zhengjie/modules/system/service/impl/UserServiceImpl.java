@@ -204,7 +204,7 @@ public class UserServiceImpl implements UserService {
         }
         @NotBlank String username = user.getUsername();
         flushCache(username);
-        return new HashMap<String, String>(1) {{
+        return new HashMap<>(1) {{
             put("avatar", file.getName());
         }};
     }
