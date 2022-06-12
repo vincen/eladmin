@@ -13,29 +13,22 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.modules.quartz.task;
+package me.zhengjie.modules.security.service.dto;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
- * 测试用
+ * 避免序列化问题
  * @author Zheng Jie
- * @date 2019-01-08
+ * @date 2018-11-30
  */
-@Slf4j
-@Service
-public class TestTask {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AuthorityDto implements GrantedAuthority {
 
-    public void run(){
-        log.info("run 执行成功");
-    }
-
-    public void run1(String str){
-        log.info("run1 执行成功，参数为： {}" + str);
-    }
-
-    public void run2(){
-        log.info("run2 执行成功");
-    }
+    private String authority;
 }

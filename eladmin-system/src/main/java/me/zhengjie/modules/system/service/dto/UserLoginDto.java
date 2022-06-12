@@ -13,29 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.modules.quartz.task;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+package me.zhengjie.modules.system.service.dto;
 
 /**
- * 测试用
  * @author Zheng Jie
- * @date 2019-01-08
- */
-@Slf4j
-@Service
-public class TestTask {
+ * @description 用户缓存时使用
+ * @date 2022-05-26
+ **/
+public class UserLoginDto extends UserDto {
 
-    public void run(){
-        log.info("run 执行成功");
-    }
+    private String password;
 
-    public void run1(String str){
-        log.info("run1 执行成功，参数为： {}" + str);
-    }
-
-    public void run2(){
-        log.info("run2 执行成功");
-    }
+    private Boolean isAdmin;
 }
