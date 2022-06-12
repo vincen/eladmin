@@ -116,7 +116,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         try {
             user = userService.findByName(username);
         } catch (EntityNotFoundException e) {
-            // SpringSecurity会自动转换UsernameNotFoundException为BadCredentialsException
+            // SpringSecurity 会自动转换 UsernameNotFoundException为BadCredentialsException
             throw new UsernameNotFoundException("", e);
         }
         if (user == null) {

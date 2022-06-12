@@ -1,19 +1,14 @@
 package me.zhengjie;
 
 import io.swagger.annotations.Api;
-import io.undertow.server.DefaultByteBufferPool;
-import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
 import me.zhengjie.annotation.rest.AnonymousGetMapping;
 import me.zhengjie.utils.SpringContextHolder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.ApplicationPidFileWriter;
-import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,15 +44,6 @@ public class AppRun {
 //        return fa;
 //    }
 
-    // 解决 undertow warn
-    // UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
-    @Component
-    public class CustomerUndertowFactor implements WebServerFactoryCustomizer<UndertowServletWebServerFactory> {
-        @Override
-        public void customize(UndertowServletWebServerFactory factory) {
-            factory.addDeploymentInfoCustomizers(deploymentInfo -> deploymentInfo.addServletContextAttribute("io.undertow.websockets.jsr.WebSocketDeploymentInfo", new WebSocketDeploymentInfo().setBuffers(new DefaultByteBufferPool(false, 1024))));
-        }
-    }
 
     /**
      * 访问首页提示
