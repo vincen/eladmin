@@ -1,18 +1,3 @@
-/*
- *  Copyright 2019-2020 Zheng Jie
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package me.zhengjie.modules.security.security;
 
 import cn.hutool.core.date.DateField;
@@ -34,9 +19,6 @@ import java.security.Key;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author /
- */
 @Slf4j
 @Component
 public class TokenProvider implements InitializingBean {
@@ -64,7 +46,7 @@ public class TokenProvider implements InitializingBean {
     }
 
     /**
-     * 创建Token 设置永不过期，
+     * 创建 Token 设置永不过期，
      * Token 的时间有效性转到Redis 维护
      *
      * @param authentication /
@@ -72,7 +54,7 @@ public class TokenProvider implements InitializingBean {
      */
     public String createToken(Authentication authentication) {
         return jwtBuilder
-                // 加入ID确保生成的 Token 都不一致
+                // 加入 ID 确保生成的 Token 都不一致
                 .setId(IdUtil.simpleUUID())
                 .claim(AUTHORITIES_KEY, authentication.getName())
                 .setSubject(authentication.getName())
