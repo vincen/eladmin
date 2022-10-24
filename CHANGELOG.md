@@ -1,4 +1,56 @@
-# EL-ADMIN 2.7
+# Guides
+
+- 一级标题标识版本。版本号跟随 `Spring boot` 的版本号演进。版本号可以跳着发布。
+- 版本号前后带波浪线表示还未发布。
+
+# To do Tasks
+
+- !!! 
+- !! 整合几个到一起，将**代码生成**项目单位作为一个项目运行。
+- !! 将所有日期格式更新成 LocalDateTime。
+- !! 修改包名为：com.fuqssi。
+- ! 了解 Yauaa 的用途，https://yauaa.basjes.nl。
+
+# Version
+
+## 2.7.5(unpublished)
+
+### Completed Work
+
+- 2022-06-13
+
+  - 升级 JDK 17。
+
+  - Remove copyright information from some source code files.
+
+
+- 2022-06-05
+
+  - 替换数据库连接池，druid —> hikari。
+
+  - 删除 fastjson，使用 springboot 支持的 jackson。
+
+  - 删除 log4jdbc.log4j2.properties。
+
+  - 删除 SQL 监控相关代码。
+
+
+- 2022-06-04
+
+  - 删除后端 tools 包下：阿里支付、七牛存储相关代码。
+
+  - 删除后端 system 包下：运维管理、服务器监控相关代码，该运维管理无实际意义。
+
+  - 删除前端阿里支付、七牛存储、运维管理、服务器监控相关代码。
+
+
+### 升级过程中遇到的问题及解决方法
+
+#### 从 fastjson 替换成 jackson
+
+注意 JwtUserDto 类反序列化时，要加一个 setRoles() 的方法。
+
+## 2.7
 
 - 升级 JDK 11。
 - 升级 Spring boot 2.4.4 。
@@ -10,13 +62,13 @@
 - 优化数据库脚本。
 - 替换容器，tomcat -> undertow 。
 
-## 升级过程中遇到的问题及解决方法
+### 升级过程中遇到的问题及解决方法
 
-### 执行数据库脚本报异常
+#### 执行数据库脚本报异常
 
 MySQL 中 int，bigint 等类型不需要写长度数字。将 int(8) 这类内容改为 int。
 
-### 跨域配置问题
+#### 跨域配置问题
 
 > When allowCredentials is true, allowedOrigins cannot contain the special value "*“since that cannot be set on the “Access-Control-Allow-Origin” response header. To allow credentials to a set of origins, list them explicitly or consider using"allowedOriginPatterns” instead.
 
