@@ -1,12 +1,11 @@
 # Guides
 
 - 一级标题标识版本。版本号跟随 `Spring boot` 的版本号演进。版本号可以跳着发布。
-- 版本号前后带波浪线表示还未发布。
 
 # To do Tasks
 
 - !!! 
-- !! 整合几个到一起，将**代码生成**项目单位作为一个项目运行。
+- !! 整合几个到一起，将**代码生成**项目单独作为一个项目运行。
 - !! 将所有日期格式更新成 LocalDateTime。
 - !! 修改包名为：com.fuqssi。
 - ! 了解 Yauaa 的用途，https://yauaa.basjes.nl。
@@ -16,6 +15,9 @@
 ## 2.7.5(unpublished)
 
 ### Completed Work
+
+- 2022-11-13
+  - 配合 2022-06-04 任务，修改 SQL 文件，eladmin_2_2_fornow.sql
 
 - 2022-06-13
 
@@ -49,6 +51,10 @@
 #### 从 fastjson 替换成 jackson
 
 注意 JwtUserDto 类反序列化时，要加一个 setRoles() 的方法。
+
+
+
+elAdmin- 2022-11-06 23:16:13 [ELADMIN-HikariCP housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - ELADMIN-HikariCP - Thread starvation or clock leap detected (housekeeper delta=9m47s448ms).
 
 ## 2.7
 
