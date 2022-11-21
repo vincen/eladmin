@@ -3,7 +3,8 @@ package me.zhengjie.modules.system.service.dto;
 import lombok.Data;
 import me.zhengjie.annotation.DataPermission;
 import me.zhengjie.annotation.Query;
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -23,5 +24,5 @@ public class DeptQueryCriteria{
     private Boolean pidIsNull;
 
     @Query(type = Query.Type.BETWEEN)
-    private List<Timestamp> createTime;
+    private List<LocalDateTime> createTime;
 }

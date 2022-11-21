@@ -5,9 +5,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -75,7 +80,7 @@ public class Log implements Serializable {
      * 创建日期
      */
     @CreationTimestamp
-    private Timestamp createTime;
+    private LocalDateTime createTime;
 
     public Log(String logType, Long time) {
         this.logType = logType;

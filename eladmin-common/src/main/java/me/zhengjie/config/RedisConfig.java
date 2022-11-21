@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import me.zhengjie.utils.JsonMapper;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -51,11 +53,12 @@ public class RedisConfig extends CachingConfigurerSupport {
 //    }
     @Bean
     public RedisCacheConfiguration redisCacheConfiguration() {
-//        FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
-        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer(Object.class);
+        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper mapper = new ObjectMapper();
         mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
+        //
+        mapper.registerModule(new JavaTimeModule()).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         serializer.setObjectMapper(mapper);
         configuration = configuration.serializeValuesWith(RedisSerializationContext.
                 SerializationPair.fromSerializer(serializer)).entryTtl(Duration.ofHours(2));
@@ -90,6 +93,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.WRAPPER_ARRAY);
+        mapper.registerModule(new JavaTimeModule()).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         serializer.setObjectMapper(mapper);
         //序列化
         // value 值的序列化采用 Jackson2JsonRedisSerializer
@@ -111,7 +115,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Override
     public KeyGenerator keyGenerator() {
         return (target, method, params) -> {
-            Map<String,Object> container = new HashMap<>(8);
+            Map<String, Object> container = new HashMap<>(8);
             Class<?> targetClassClass = target.getClass();
             // 类地址
             container.put("class", targetClassClass.toGenericString());
