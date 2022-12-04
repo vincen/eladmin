@@ -41,17 +41,17 @@ public class MenuDto extends BaseDTO implements Serializable {
 
     private String icon;
 
-//    public Boolean getHasChildren() {
-//        return subCount > 0;
-//    }
-//
-//    public Boolean getLeaf() {
-//        return subCount <= 0;
-//    }
-//
-//    public String getLabel() {
-//        return title;
-//    }
+    public Boolean getHasChildren() {
+        return subCount > 0;
+    }
+
+    public Boolean getLeaf() {
+        return subCount <= 0;
+    }
+
+    public String getLabel() {
+        return title;
+    }
 
     @Override
     public boolean equals(Object o) {

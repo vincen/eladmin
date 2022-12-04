@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.zhengjie.base.BaseDTO;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -44,5 +44,5 @@ public class UserDto extends BaseDTO implements Serializable {
     @JsonIgnore
     private Boolean isAdmin = false;
 
-    private Date pwdResetTime;
+    private LocalDate pwdResetTime;
 }

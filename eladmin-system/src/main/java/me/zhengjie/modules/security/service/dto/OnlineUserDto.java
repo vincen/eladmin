@@ -3,7 +3,9 @@ package me.zhengjie.modules.security.service.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Date;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * 在线用户
@@ -51,7 +53,7 @@ public class OnlineUserDto {
     /**
      * 登录时间
      */
-    private Date loginTime;
+    private LocalDateTime loginTime;
 
 
 }

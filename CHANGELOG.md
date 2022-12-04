@@ -4,15 +4,28 @@
 
 # To do Tasks
 
-- !!! 
+- !!! 适配 spring 3.0.0
 - !! 整合几个到一起，将**代码生成**项目单独作为一个项目运行。
-- !! 将所有日期格式更新成 LocalDateTime。
+- !! websocket 在系统中是否能去掉
 - !! 修改包名为：com.fuqssi。
 - ! 了解 Yauaa 的用途，https://yauaa.basjes.nl。
 
 # Version
 
 ## 2.7.5(unpublished)
+
+### Working
+
+将所有日期格式更新成 jdk8 中的 java.time。
+
+1. 修改所有所有类的 java.sql.Date, java.util.Date 为 java.time.LocalDate 或者 java.time.LocalDateTime 。
+
+**still have some, keep searching**
+
+
+
+1. 删除后端 common 包下若干类：
+   1. me.zhengjie.utils.DateUtil.java	/ me.zhengjie.utils.DateUtilTest.java (in test folder)
 
 ### Completed Work
 

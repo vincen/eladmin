@@ -14,13 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.UnknownHostException;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Enumeration;
 
 /**
- * @author Zheng Jie
- * 字符串工具类, 继承org.apache.commons.lang3.StringUtils类
+ * 字符串工具类, 继承 org.apache.commons.lang3.StringUtils 类
  */
 @Slf4j
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
@@ -194,18 +192,21 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     /**
-     * 获得当天是周几
+     * 获得当天是周几<br/>
+     *
+     * return "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
      */
     public static String getWeekDay() {
-        String[] weekDays = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-
-        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
-        if (w < 0) {
-            w = 0;
-        }
-        return weekDays[w];
+//        String[] weekDays = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(new Date());
+//
+//        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+//        if (w < 0) {
+//            w = 0;
+//        }
+//        return weekDays[w];
+        return LocalDate.now().getDayOfWeek().toString();
     }
 
     /**
