@@ -16,16 +16,19 @@
 
 ### Working
 
-将所有日期格式更新成 jdk8 中的 java.time。
+- 将所有日期格式更新成 jdk8 中的 java.time。
+  - 修改所有所有类的 java.sql.Date, java.util.Date 为 java.time.LocalDate 或者 java.time.LocalDateTime 。
+  - 删除后端 common 包下若干类：
+    - me.zhengjie.utils.DateUtil.java	/ me.zhengjie.utils.DateUtilTest.java (in test folder)
+- 前端代码更新
+  - 删除前端 src/api/tools 目录下：
+    - alipay.js
+    - qiniu.js
+  - 修改 /src/store/modules/api.js 中 swaggerApi 的地址为：swagger-ui/index.html
 
-1. 修改所有所有类的 java.sql.Date, java.util.Date 为 java.time.LocalDate 或者 java.time.LocalDateTime 。
+
 
 **still have some, keep searching**
-
-
-
-1. 删除后端 common 包下若干类：
-   1. me.zhengjie.utils.DateUtil.java	/ me.zhengjie.utils.DateUtilTest.java (in test folder)
 
 ### Completed Work
 

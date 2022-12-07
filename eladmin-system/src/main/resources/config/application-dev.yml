@@ -20,6 +20,12 @@ spring:
       #      连接超时时长
       connection-timeout: 20000
       connection-test-query: SELECT 1
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    visibility:
+      all: any
+
 
 # 登录相关配置
 login:
