@@ -45,24 +45,8 @@ public class RedisConfig extends CachingConfigurerSupport {
      * 设置 redis 数据默认过期时间，默认2小时
      * 设置 @cacheable 序列化方式
      */
-//    @Bean
-//    public RedisCacheConfiguration redisCacheConfiguration() {
-//        FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
-//        RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
-//        configuration = configuration.serializeValuesWith(RedisSerializationContext.
-//                SerializationPair.fromSerializer(fastJsonRedisSerializer)).entryTtl(Duration.ofHours(2));
-//        return configuration;
-//    }
     @Bean
     public RedisCacheConfiguration redisCacheConfiguration() {
-//        ObjectMapper mapper = new ObjectMapper();
-//        // 处理 Jdk8 中 LocalDateTime 的序列化
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        JavaTimeModule javaTimeModule = new JavaTimeModule();
-//        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(formatter));
-//        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(formatter));
-//        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS).registerModule(javaTimeModule);
-//        mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
         Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
         ObjectMapper mapper = builder.build();
@@ -77,41 +61,11 @@ public class RedisConfig extends CachingConfigurerSupport {
         return configuration;
     }
 
-    @SuppressWarnings("all")
-//    @Bean(name = "redisTemplate")
-//    @ConditionalOnMissingBean(name = "redisTemplate")
-//    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-//        RedisTemplate<Object, Object> template = new RedisTemplate<>();
-//        //序列化
-//        FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
-//        // value值的序列化采用fastJsonRedisSerializer
-//        template.setValueSerializer(fastJsonRedisSerializer);
-//        template.setHashValueSerializer(fastJsonRedisSerializer);
-//        // 全局开启AutoType，这里方便开发，使用全局的方式
-//        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
-//        // 建议使用这种方式，小范围指定白名单
-//        // ParserConfig.getGlobalInstance().addAccept("me.zhengjie.domain");
-//        // key的序列化采用StringRedisSerializer
-//        template.setKeySerializer(new StringRedisSerializer());
-//        template.setHashKeySerializer(new StringRedisSerializer());
-//        template.setConnectionFactory(redisConnectionFactory);
-//        return template;
-//    }
-
-
     @Bean(name = "redisTemplate")
     @ConditionalOnMissingBean(name = "redisTemplate")
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer(Object.class);
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-//        mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.WRAPPER_ARRAY);
-//        mapper.registerModule(new JavaTimeModule()).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        JavaTimeModule javaTimeModule = new JavaTimeModule();
-//        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(formatter));
-//        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(formatter));
         ObjectMapper mapper = builder.build();
         mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
         serializer.setObjectMapper(mapper);
@@ -184,66 +138,3 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
 }
-
-/**
- * Value 序列化
- */
-//class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
-//
-//    private final Class<T> clazz;
-//
-//    FastJsonRedisSerializer(Class<T> clazz) {
-//        super();
-//        this.clazz = clazz;
-//    }
-//
-//    @Override
-//    public byte[] serialize(T t) {
-//        if (t == null) {
-//            return new byte[0];
-//        }
-//        return JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(StandardCharsets.UTF_8);
-//    }
-//
-//    @Override
-//    public T deserialize(byte[] bytes) {
-//        if (bytes == null || bytes.length <= 0) {
-//            return null;
-//        }
-//        String str = new String(bytes, StandardCharsets.UTF_8);
-//        return JSON.parseObject(str, clazz);
-//    }
-//}
-//
-///**
-// * 重写序列化器
-// */
-//class StringRedisSerializer implements RedisSerializer<Object> {
-//
-//    private final Charset charset;
-//
-//    StringRedisSerializer() {
-//        this(StandardCharsets.UTF_8);
-//    }
-//
-//    private StringRedisSerializer(Charset charset) {
-//        Assert.notNull(charset, "Charset must not be null!");
-//        this.charset = charset;
-//    }
-//
-//    @Override
-//    public String deserialize(byte[] bytes) {
-//        return (bytes == null ? null : new String(bytes, charset));
-//    }
-//
-//    @Override
-//    public @Nullable byte[] serialize(Object object) {
-//        String string = JSON.toJSONString(object);
-//
-//        if (org.apache.commons.lang3.StringUtils.isBlank(string)) {
-//            return null;
-//        }
-//        string = string.replace("\"", "");
-//        return string.getBytes(charset);
-//    }
-//}

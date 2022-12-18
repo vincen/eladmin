@@ -12,25 +12,24 @@
 
 # Version
 
-## 2.7.5(unpublished)
+## 2.7.6(unpublished)
 
 ### Working
 
-- 将所有日期格式更新成 jdk8 中的 java.time。
-  - 修改所有所有类的 java.sql.Date, java.util.Date 为 java.time.LocalDate 或者 java.time.LocalDateTime 。
-  - 删除后端 common 包下若干类：
-    - me.zhengjie.utils.DateUtil.java	/ me.zhengjie.utils.DateUtilTest.java (in test folder)
-- 前端代码更新
-  - 删除前端 src/api/tools 目录下：
-    - alipay.js
-    - qiniu.js
-  - 修改 /src/store/modules/api.js 中 swaggerApi 的地址为：swagger-ui/index.html
-
-
-
-**still have some, keep searching**
+- 
 
 ### Completed Work
+
+- 2022-12-18
+  - 将所有日期格式更新成 jdk8 中的 java.time。
+    - 修改所有所有类的 java.sql.Date, java.util.Date 为 java.time.LocalDate 或者 java.time.LocalDateTime 。
+    - 删除后端 common 包下若干类：
+      - me.zhengjie.utils.DateUtil.java	/ me.zhengjie.utils.DateUtilTest.java (in test folder)
+  - 前端代码更新
+    - 删除前端 src/api/tools 目录下：
+      - alipay.js
+      - qiniu.js
+    - 修改 /src/store/modules/api.js 中 swaggerApi 的地址为：swagger-ui/index.html
 
 - 2022-11-13
   - 配合 2022-06-04 任务，修改 SQL 文件，eladmin_2_2_fornow.sql

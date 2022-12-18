@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class BaseDTO  implements Serializable {
+public class BaseDTO implements Serializable {
 
     private String createBy;
 
