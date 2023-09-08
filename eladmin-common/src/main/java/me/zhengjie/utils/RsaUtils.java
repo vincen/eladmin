@@ -37,14 +37,7 @@ public class RsaUtils {
         System.out.println("***************** 公钥加密私钥解密开始 *****************");
         String text1 = encryptByPublicKey(keyPair.getPublicKey(), RsaUtils.SRC);
         String text2 = decryptByPrivateKey(keyPair.getPrivateKey(), text1);
-        System.out.println("加密前：" + RsaUtils.SRC);
-        System.out.println("加密后：" + text1);
-        System.out.println("解密后：" + text2);
-        if (RsaUtils.SRC.equals(text2)) {
-            System.out.println("解密字符串和原始字符串一致，解密成功");
-        } else {
-            System.out.println("解密字符串和原始字符串不一致，解密失败");
-        }
+        printText(text1, text2);
         System.out.println("***************** 公钥加密私钥解密结束 *****************");
     }
 
@@ -56,6 +49,11 @@ public class RsaUtils {
         System.out.println("***************** 私钥加密公钥解密开始 *****************");
         String text1 = encryptByPrivateKey(keyPair.getPrivateKey(), RsaUtils.SRC);
         String text2 = decryptByPublicKey(keyPair.getPublicKey(), text1);
+        printText(text1, text2);
+        System.out.println("***************** 私钥加密公钥解密结束 *****************");
+    }
+
+    private static void printText(String text1, String text2) {
         System.out.println("加密前：" + RsaUtils.SRC);
         System.out.println("加密后：" + text1);
         System.out.println("解密后：" + text2);
@@ -64,7 +62,6 @@ public class RsaUtils {
         } else {
             System.out.println("解密字符串和原始字符串不一致，解密失败");
         }
-        System.out.println("***************** 私钥加密公钥解密结束 *****************");
     }
 
     /**

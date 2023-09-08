@@ -1,18 +1,16 @@
 package me.zhengjie.utils;
 
-import java.io.IOException;
-
-import com.google.common.base.Strings;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.common.base.Strings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 /**
  * 简单封装Jackson，实现JSON String<->Java Object的Mapper.
@@ -135,8 +133,6 @@ public class JsonMapper {
     public <T> T update(String jsonString, T object) {
         try {
             return (T) mapper.readerForUpdating(object).readValue(jsonString);
-        } catch (JsonProcessingException e) {
-            logger.warn("update json string:" + jsonString + " to object:" + object + " error.", e);
         } catch (IOException e) {
             logger.warn("update json string:" + jsonString + " to object:" + object + " error.", e);
         }
