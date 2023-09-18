@@ -87,7 +87,8 @@ public class SwaggerConfig {
     private SecurityContext getContextByPath() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("^(?!/auth).*$"))
+                // 表示 /auth/code、/auth/login 接口不需要使用securitySchemes即不需要带token
+                .operationSelector(o->o.requestMappingPattern().matches("^(?!/auth/code|/auth/login).*$"))
                 .build();
     }
 

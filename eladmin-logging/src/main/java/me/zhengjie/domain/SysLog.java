@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @Table(name = "sys_log")
 @NoArgsConstructor
-public class Log implements Serializable {
+public class SysLog implements Serializable {
 
     @Id
     @Column(name = "log_id")
@@ -82,7 +82,7 @@ public class Log implements Serializable {
     @CreationTimestamp
     private LocalDateTime createTime;
 
-    public Log(String logType, Long time) {
+    public SysLog(String logType, Long time) {
         this.logType = logType;
         this.time = time;
     }

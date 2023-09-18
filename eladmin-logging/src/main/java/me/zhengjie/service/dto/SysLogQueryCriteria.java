@@ -9,7 +9,7 @@ import java.util.List;
  * 日志查询类
  */
 @Data
-public class LogQueryCriteria {
+public class SysLogQueryCriteria {
 
     @Query(blurry = "username,description,address,requestIp,method,params")
     private String blurry;

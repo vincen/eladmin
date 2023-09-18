@@ -1,5 +1,6 @@
 package me.zhengjie.modules.system.service;
 
+import me.zhengjie.utils.PageResult;
 import me.zhengjie.modules.system.domain.User;
 import me.zhengjie.modules.system.service.dto.UserDto;
 import me.zhengjie.modules.system.service.dto.UserLoginDto;
@@ -81,7 +82,7 @@ public interface UserService {
      * @param pageable 分页参数
      * @return /
      */
-    Object queryAll(UserQueryCriteria criteria, Pageable pageable);
+    PageResult<UserDto> queryAll(UserQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部不分页
@@ -103,4 +104,11 @@ public interface UserService {
      * @param resources /
      */
     void updateCenter(User resources);
+
+    /**
+     * 重置密码
+     * @param ids 用户id
+     * @param pwd 密码
+     */
+    void resetPwd(Set<Long> ids, String pwd);
 }

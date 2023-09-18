@@ -1,14 +1,10 @@
 package me.zhengjie.utils;
 
-import cn.hutool.http.HttpUtil;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 import lombok.extern.slf4j.Slf4j;
-import me.zhengjie.config.ElAdminProperties;
 import net.dreamlu.mica.ip2region.core.Ip2regionSearcher;
 import net.dreamlu.mica.ip2region.core.IpInfo;
-import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
@@ -30,14 +26,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 注入bean
      */
     private final static Ip2regionSearcher IP_SEARCHER = SpringContextHolder.getBean(Ip2regionSearcher.class);
-
-
-    private static final UserAgentAnalyzer USER_AGENT_ANALYZER = UserAgentAnalyzer
-            .newBuilder()
-            .hideMatcherLoadStats()
-            .withCache(10000)
-            .withField(UserAgent.AGENT_NAME_VERSION)
-            .build();
 
     /**
      * 驼峰命名法工具
@@ -158,37 +146,17 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 根据ip获取详细地址
      */
     public static String getCityInfo(String ip) {
-        if (ElAdminProperties.ipLocal) {
-            return getLocalCityInfo(ip);
-        } else {
-            return getHttpCityInfo(ip);
-        }
-    }
-
-    /**
-     * 根据ip获取详细地址
-     */
-    public static String getHttpCityInfo(String ip) {
-        String api = String.format(ElAdminConstant.Url.IP_URL, ip);
-        JSONObject object = JSONUtil.parseObj(HttpUtil.get(api));
-        return object.get("addr", String.class);
-    }
-
-    /**
-     * 根据ip获取详细地址
-     */
-    public static String getLocalCityInfo(String ip) {
         IpInfo ipInfo = IP_SEARCHER.memorySearch(ip);
         if(ipInfo != null){
             return ipInfo.getAddress();
         }
         return null;
-
     }
 
     public static String getBrowser(HttpServletRequest request) {
-        UserAgent.ImmutableUserAgent userAgent = USER_AGENT_ANALYZER.parse(request.getHeader("User-Agent"));
-        return userAgent.get(UserAgent.AGENT_NAME_VERSION).getValue();
+        UserAgent ua = UserAgentUtil.parse(request.getHeader("User-Agent"));
+        String browser = ua.getBrowser().toString() + " " + ua.getVersion();
+        return browser.replace(".0.0.0","");
     }
 
     /**

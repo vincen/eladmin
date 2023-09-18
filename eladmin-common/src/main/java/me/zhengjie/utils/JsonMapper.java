@@ -36,7 +36,7 @@ public class JsonMapper {
     }
 
     public static JsonMapper buildMapper() {
-        return new JsonMapper();
+        return new JsonMapper(Include.ALWAYS);
     }
 
     /**

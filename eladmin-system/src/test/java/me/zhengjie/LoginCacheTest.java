@@ -32,7 +32,7 @@ public class LoginCacheTest {
 
         long end1 = System.currentTimeMillis();
         //关闭缓存
-        userDetailsService.setEnableCache(false);
+//        userDetailsService.setEnableCache(false);
         long start2 = System.currentTimeMillis();
         for (int i = 0; i < size; i++) {
             userDetailsService.loadUserByUsername("admin");

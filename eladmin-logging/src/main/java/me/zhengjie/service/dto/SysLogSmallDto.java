@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-public class LogSmallDTO implements Serializable {
+public class SysLogSmallDto implements Serializable {
 
     private String description;
 

@@ -111,6 +111,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
     @Override
+    @SuppressWarnings({"all"})
     public CacheErrorHandler errorHandler() {
         // 异常处理，当 Redis 发生异常时，打印日志，但是程序正常走
         log.info("初始化 -> [{}]", "Redis CacheErrorHandler");
@@ -136,5 +137,4 @@ public class RedisConfig extends CachingConfigurerSupport {
             }
         };
     }
-
 }

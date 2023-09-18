@@ -1,8 +1,8 @@
-# Guides
+# 1. Guides
 
 - 一级标题标识版本。版本号跟随 `Spring boot` 的版本号演进。版本号可以跳着发布。
 
-# To do Tasks
+# 2. To-do Tasks
 
 - !!! 适配 spring 3.0.0
 - !! 整合几个到一起，将**代码生成**项目单独作为一个项目运行。
@@ -10,13 +10,9 @@
 - !! 修改包名为：com.fuqssi。
 - ! 了解 Yauaa 的用途，https://yauaa.basjes.nl。
 
-# Version
+# 3. Version
 
-## 2.7.6(unpublished)
-
-### Working
-
-- 
+## 2.7.6(untag)
 
 ### Completed Work
 
@@ -42,14 +38,13 @@
 
 
 - 2022-06-05
-
-  - 替换数据库连接池，druid —> hikari。
-
-  - 删除 fastjson，使用 springboot 支持的 jackson。
-
-  - 删除 log4jdbc.log4j2.properties。
-
-  - 删除 SQL 监控相关代码。
+- 替换数据库连接池，druid —> hikari。
+  
+- 删除 fastjson，使用 springboot 支持的 jackson。
+  
+- 删除 log4jdbc.log4j2.properties。
+  
+- 删除 SQL 监控相关代码。
 
 
 - 2022-06-04
@@ -71,7 +66,7 @@
 
 elAdmin- 2022-11-06 23:16:13 [ELADMIN-HikariCP housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - ELADMIN-HikariCP - Thread starvation or clock leap detected (housekeeper delta=9m47s448ms).
 
-## 2.7
+## 2.7(tag)
 
 - 升级 JDK 11。
 - 升级 Spring boot 2.4.4 。

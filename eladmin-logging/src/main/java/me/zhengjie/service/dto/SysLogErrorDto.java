@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-public class LogErrorDTO implements Serializable {
+public class SysLogErrorDto implements Serializable {
 
     private Long id;
 

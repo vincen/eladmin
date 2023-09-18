@@ -1,6 +1,5 @@
 package me.zhengjie.modules.system.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import me.zhengjie.base.BaseDTO;
@@ -20,7 +19,6 @@ public class DeptDto extends BaseDTO implements Serializable {
 
     private Integer deptSort;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<DeptDto> children;
 
     private Long pid;

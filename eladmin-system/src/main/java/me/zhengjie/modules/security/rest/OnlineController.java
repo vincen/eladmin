@@ -19,7 +19,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.modules.security.service.OnlineUserService;
+import me.zhengjie.modules.security.service.dto.OnlineUserDto;
 import me.zhengjie.utils.EncryptUtils;
+import me.zhengjie.utils.PageResult;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,25 +45,25 @@ public class OnlineController {
     @ApiOperation("查询在线用户")
     @GetMapping
     @PreAuthorize("@el.check()")
-    public ResponseEntity<Object> queryOnlineUser(String filter, Pageable pageable){
-        return new ResponseEntity<>(onlineUserService.getAll(filter, pageable),HttpStatus.OK);
+    public ResponseEntity<PageResult<OnlineUserDto>> queryOnlineUser(String username, Pageable pageable){
+        return new ResponseEntity<>(onlineUserService.getAll(username, pageable),HttpStatus.OK);
     }
 
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check()")
-    public void exportOnlineUser(HttpServletResponse response, String filter) throws IOException {
-        onlineUserService.download(onlineUserService.getAll(filter), response);
+    public void exportOnlineUser(HttpServletResponse response, String username) throws IOException {
+        onlineUserService.download(onlineUserService.getAll(username), response);
     }
 
     @ApiOperation("踢出用户")
     @DeleteMapping
     @PreAuthorize("@el.check()")
     public ResponseEntity<Object> deleteOnlineUser(@RequestBody Set<String> keys) throws Exception {
-        for (String key : keys) {
+        for (String token : keys) {
             // 解密Key
-            key = EncryptUtils.desDecrypt(key);
-            onlineUserService.kickOut(key);
+            token = EncryptUtils.desDecrypt(token);
+            onlineUserService.logout(token);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

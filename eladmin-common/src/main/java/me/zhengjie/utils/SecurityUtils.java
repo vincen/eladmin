@@ -1,23 +1,8 @@
-/*
- *  Copyright 2019-2020 Zheng Jie
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package me.zhengjie.utils;
 
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.utils.enums.DataScopeEnum;
@@ -30,8 +15,6 @@ import java.util.List;
 
 /**
  * 获取当前登录的用户
- * @author Zheng Jie
- * @date 2019-01-17
  */
 @Slf4j
 public class SecurityUtils {
@@ -68,7 +51,9 @@ public class SecurityUtils {
      */
     public static Long getCurrentUserId() {
         UserDetails userDetails = getCurrentUser();
-        return new JSONObject(new JSONObject(userDetails).get("user")).get("id", Long.class);
+        // 将 Java 对象转换为 JSONObject 对象
+        JSONObject jsonObject = (JSONObject) JSON.toJSON(userDetails);
+        return jsonObject.getJSONObject("user").getLong("id");
     }
 
     /**
@@ -77,8 +62,10 @@ public class SecurityUtils {
      */
     public static List<Long> getCurrentUserDataScope(){
         UserDetails userDetails = getCurrentUser();
-        JSONArray array = JSONUtil.parseArray(new JSONObject(userDetails).get("dataScopes"));
-        return JSONUtil.toList(array,Long.class);
+        // 将 Java 对象转换为 JSONObject 对象
+        JSONObject jsonObject = (JSONObject) JSON.toJSON(userDetails);
+        JSONArray jsonArray = jsonObject.getJSONArray("dataScopes");
+        return JSON.parseArray(jsonArray.toJSONString(), Long.class);
     }
 
     /**

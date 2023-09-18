@@ -10,10 +10,7 @@ import me.zhengjie.domain.vo.TableInfo;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.repository.ColumnInfoRepository;
 import me.zhengjie.service.GeneratorService;
-import me.zhengjie.utils.FileUtil;
-import me.zhengjie.utils.GenUtil;
-import me.zhengjie.utils.PageUtil;
-import me.zhengjie.utils.StringUtils;
+import me.zhengjie.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -26,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +38,7 @@ public class GeneratorServiceImpl implements GeneratorService {
 
     private final ColumnInfoRepository columnInfoRepository;
 
+    private final String CONFIG_MESSAGE = "请先配置生成器";
     @Override
     public Object getTables() {
         // 使用预编译防止sql注入
@@ -51,7 +50,7 @@ public class GeneratorServiceImpl implements GeneratorService {
     }
 
     @Override
-    public Object getTables(String name, int[] startEnd) {
+    public PageResult<TableInfo> getTables(String name, int[] startEnd) {
         // 使用预编译防止sql注入
         String sql = "select table_name ,create_time , engine, table_collation, table_comment from information_schema.tables " +
                 "where table_schema = (select database()) " +
@@ -70,8 +69,8 @@ public class GeneratorServiceImpl implements GeneratorService {
                 "where table_schema = (select database()) and table_name like :table";
         Query queryCount = em.createNativeQuery(countSql);
         queryCount.setParameter("table", StringUtils.isNotBlank(name) ? ("%" + name + "%") : "%%");
-        Object totalElements = queryCount.getSingleResult();
-        return PageUtil.toPage(tableInfos, totalElements);
+        BigInteger totalElements = (BigInteger) queryCount.getSingleResult();
+        return PageUtil.toPage(tableInfos, totalElements.longValue());
     }
 
     @Override
@@ -150,7 +149,7 @@ public class GeneratorServiceImpl implements GeneratorService {
     @Override
     public void generator(GenConfig genConfig, List<ColumnInfo> columns) {
         if (genConfig.getId() == null) {
-            throw new BadRequestException("请先配置生成器");
+            throw new BadRequestException(CONFIG_MESSAGE);
         }
         try {
             GenUtil.generatorCode(columns, genConfig);
@@ -163,7 +162,7 @@ public class GeneratorServiceImpl implements GeneratorService {
     @Override
     public ResponseEntity<Object> preview(GenConfig genConfig, List<ColumnInfo> columns) {
         if (genConfig.getId() == null) {
-            throw new BadRequestException("请先配置生成器");
+            throw new BadRequestException(CONFIG_MESSAGE);
         }
         List<Map<String, Object>> genList = GenUtil.preview(columns, genConfig);
         return new ResponseEntity<>(genList, HttpStatus.OK);
@@ -172,7 +171,7 @@ public class GeneratorServiceImpl implements GeneratorService {
     @Override
     public void download(GenConfig genConfig, List<ColumnInfo> columns, HttpServletRequest request, HttpServletResponse response) {
         if (genConfig.getId() == null) {
-            throw new BadRequestException("请先配置生成器");
+            throw new BadRequestException(CONFIG_MESSAGE);
         }
         try {
             File file = new File(GenUtil.download(columns, genConfig));

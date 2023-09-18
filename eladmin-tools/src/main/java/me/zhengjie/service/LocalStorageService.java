@@ -3,6 +3,7 @@ package me.zhengjie.service;
 import me.zhengjie.domain.LocalStorage;
 import me.zhengjie.service.dto.LocalStorageDto;
 import me.zhengjie.service.dto.LocalStorageQueryCriteria;
+import me.zhengjie.utils.PageResult;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,7 @@ public interface LocalStorageService {
      * @param pageable 分页参数
      * @return /
      */
-    Object queryAll(LocalStorageQueryCriteria criteria, Pageable pageable);
+    PageResult<LocalStorageDto> queryAll(LocalStorageQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部数据

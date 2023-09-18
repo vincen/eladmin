@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+import me.zhengjie.utils.PageResult;
+import ${package}.service.dto.${className}Dto;
 
 /**
   *
@@ -38,7 +40,7 @@ public class ${className}Controller {
     @Log("查询${apiAlias}")
     @ApiOperation("查询${apiAlias}")
     @PreAuthorize("@el.check('${changeClassName}:list')")
-    public ResponseEntity<Object> query${className}(${className}QueryCriteria criteria, Pageable pageable){
+    public ResponseEntity<PageResult<${className}Dto>> query${className}(${className}QueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(${changeClassName}Service.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
@@ -47,7 +49,8 @@ public class ${className}Controller {
     @ApiOperation("新增${apiAlias}")
     @PreAuthorize("@el.check('${changeClassName}:add')")
     public ResponseEntity<Object> create${className}(@Validated @RequestBody ${className} resources){
-        return new ResponseEntity<>(${changeClassName}Service.create(resources),HttpStatus.CREATED);
+        ${changeClassName}Service.create(resources);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping
